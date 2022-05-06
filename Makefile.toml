@@ -1,0 +1,20 @@
+[tasks.clean]
+command = "cargo"
+args = ["clean"]
+
+[tasks.build]
+command = "cargo"
+args = ["build"]
+
+[tasks.deploy]
+script = ['''
+#!/usr/bin/env bash
+arm-none-eabi-objcopy -O binary target/thumbv4t-none-eabi/debug/chiptalker bin/chiptalker.gba
+gbafix bin/chiptalker.gba
+''']
+
+[tasks.run]
+script = ['''
+#!/usr/bin/env bash
+/Applications/mGBA.app/Contents/MacOS/mGBA bin/chiptalker.gba
+''']
